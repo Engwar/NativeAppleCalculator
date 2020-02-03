@@ -15,6 +15,8 @@
 		9407D60823E8791D00E68913 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9407D60723E8791D00E68913 /* CalculatorViewController.swift */; };
 		9407D60D23E87B3400E68913 /* LogicOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9407D60C23E87B3400E68913 /* LogicOperations.swift */; };
 		9407D61023E87BAB00E68913 /* CalculatorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9407D60F23E87BAB00E68913 /* CalculatorScreen.swift */; };
+		9407D61523E87CAA00E68913 /* FiraSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9407D61323E87CAA00E68913 /* FiraSans-Light.ttf */; };
+		9407D61623E87CAA00E68913 /* FiraSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9407D61423E87CAA00E68913 /* FiraSans-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		9407D60723E8791D00E68913 /* CalculatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
 		9407D60C23E87B3400E68913 /* LogicOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicOperations.swift; sourceTree = "<group>"; };
 		9407D60F23E87BAB00E68913 /* CalculatorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorScreen.swift; sourceTree = "<group>"; };
+		9407D61323E87CAA00E68913 /* FiraSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Light.ttf"; sourceTree = "<group>"; };
+		9407D61423E87CAA00E68913 /* FiraSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Regular.ttf"; sourceTree = "<group>"; };
 		BDF509D53C84B3CCE8F3EABF /* Pods_NativeAppleCalculator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NativeAppleCalculator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FEF709380851F7C676773F /* Pods-NativeAppleCalculator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAppleCalculator.debug.xcconfig"; path = "Target Support Files/Pods-NativeAppleCalculator/Pods-NativeAppleCalculator.debug.xcconfig"; sourceTree = "<group>"; };
 		C4FA3DAC20CD9F313A483045 /* Pods-NativeAppleCalculator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAppleCalculator.release.xcconfig"; path = "Target Support Files/Pods-NativeAppleCalculator/Pods-NativeAppleCalculator.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 		9407D5F023E8763800E68913 /* NativeAppleCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				9407D61123E87C6800E68913 /* Resources */,
 				9407D60E23E87B9800E68913 /* Screen */,
 				9407D60B23E87B1800E68913 /* Brain */,
 				9407D60A23E87B0900E68913 /* Applications */,
@@ -132,6 +137,23 @@
 				9407D60F23E87BAB00E68913 /* CalculatorScreen.swift */,
 			);
 			path = Screen;
+			sourceTree = "<group>";
+		};
+		9407D61123E87C6800E68913 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9407D61223E87C7F00E68913 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9407D61223E87C7F00E68913 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9407D61323E87CAA00E68913 /* FiraSans-Light.ttf */,
+				9407D61423E87CAA00E68913 /* FiraSans-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,7 +216,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9407D61523E87CAA00E68913 /* FiraSans-Light.ttf in Resources */,
 				9407D5FE23E8763A00E68913 /* LaunchScreen.storyboard in Resources */,
+				9407D61623E87CAA00E68913 /* FiraSans-Regular.ttf in Resources */,
 				9407D5FB23E8763A00E68913 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
