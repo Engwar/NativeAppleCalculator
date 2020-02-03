@@ -8,93 +8,124 @@
 
 import Foundation
 
-struct LogicOperations
+final class LogicOperations
 {
-	private var currentContainer: Double?
-	private var pendingContainer = Double()
-	var result: Double? {
-		return currentContainer
+
+	private var accumulator = 0.0
+	private var previousAccumulator = 0.0
+	private var previousPriority = Int.max
+	private var pending: [PendingBinaryOperationInfo] = []
+	private var previousOperation: PendingBinaryOperationInfo?
+	var result: Double {
+		return accumulator
 	}
 
 	private enum Operation
 	{
 		case unaryOperation((Double) -> Double)
-		case binaryOperation((Double, Double) -> Double)
+		case binaryOperation((Double, Double) -> Double, Int)
 		case percentOperation((Double) -> Double, (Double, Double) -> Double)
 		case equals
+		case clear
+	}
+	//Сохраняем в структуру инфу по отложенной операции: первого оператора и саму функцию
+	private struct PendingBinaryOperationInfo
+	{
+		var function: ((Double, Double) -> Double)
+		var firstOperand: Double
 	}
 
 	private var operations: [String: Operation] = [
 		"⁺∕₋": Operation.unaryOperation{ -$0 },
-		"×": Operation.binaryOperation(*),
-		"+": Operation.binaryOperation(+),
-		"-": Operation.binaryOperation(-),
-		"÷": Operation.binaryOperation(/),
+		"×": Operation.binaryOperation({ $0 * $1 }, 1),
+		"+": Operation.binaryOperation({ $0 + $1 }, 0),
+		"-": Operation.binaryOperation({ $0 - $1 }, 0),
+		"÷": Operation.binaryOperation({ $0 / $1 }, 1),
 		"=": Operation.equals,
-		"%": Operation.percentOperation({ $0 / 100 }, { $0 / 100 * $1 }),
+		"%": Operation.percentOperation({ $0 / 100 }, { $0 * $1 / 100 }),
+		"C": Operation.clear
 	]
 
-	mutating func performOperation(_ symbol: String) {
+	//Устанавливаем начальное значение
+	func setOperand(operand: Double) {
+		accumulator = operand
+	}
+	//Выполняем пришедшую операцию, либо откладываем если операция с двумя операндами
+	func performOperation(symbol: String, getBothOperandsForBinaryOperation: Bool = true) {
 		if let operation = operations[symbol] {
 			switch operation {
 			case .unaryOperation(let function):
-				if let result = currentContainer {
-					currentContainer = function(result)
-					performPendingContainer()
+				accumulator = function(accumulator)
+				previousAccumulator = accumulator
+			case .binaryOperation(let function, let priority):
+				if getBothOperandsForBinaryOperation {
+					if pending.count > 0 {
+						if previousPriority > priority {
+							executePendingOperations()
+						}
+						else if previousPriority == priority {
+							executeLastPendingOperation()
+						}
+					}
+					pending.append(PendingBinaryOperationInfo(function: function,
+															  firstOperand: accumulator))
+					previousPriority = priority
+					previousAccumulator = accumulator
 				}
-			case .binaryOperation(let function):
-				performPendingBinaryOperation()
-				if let result = currentContainer {
-					pendingBinaryOperation = PendingBinaryOperation(function: function, firstOperand: result)
+				else {
+					updateLastPendingOperation(symbol: symbol)
 				}
-				performPendingContainer()
 			case .percentOperation(let oneDigitPercent, let twoDigitPercent):
-				if let result = currentContainer{
-					if result > 0 {
-						pendingBinaryOperation = PendingBinaryOperation(function: twoDigitPercent, firstOperand: pendingContainer)
-					}
-					else {
-						currentContainer = oneDigitPercent(result)
-					}
+				if pending.count > 0 {
+					accumulator = twoDigitPercent(accumulator, previousAccumulator)
 				}
-				performPendingContainer()
+				else {
+					accumulator = oneDigitPercent(accumulator)
+				}
+				previousAccumulator = accumulator
 			case .equals:
-				performPendingBinaryOperation()
-				performPendingContainer()
+				if pending.count > 0 {
+					if let function = pending.last?.function {
+						previousOperation = PendingBinaryOperationInfo(function: function, firstOperand: accumulator)
+					}
+					executePendingOperations()
+				}
+				else if let operation = previousOperation {
+					accumulator = operation.function(accumulator, operation.firstOperand)
+				}
+				previousAccumulator = accumulator
+			case .clear:
+				clear()
 			}
 		}
 	}
-
-	private mutating func performPendingBinaryOperation() {
-		if let pendOper = pendingBinaryOperation, let accum = currentContainer {
-			currentContainer = pendOper.perform(with: accum)
-			performPendingContainer()
-			pendingBinaryOperation = nil
+	func clear() {
+		accumulator = 0.0
+		previousAccumulator = 0.0
+		pending = []
+		previousOperation = nil
+	}
+	//Выполняем все отложенные операции из массива
+	private func executePendingOperations() {
+		while pending.count > 0 {
+			executeLastPendingOperation()
 		}
 	}
-
-	private var pendingBinaryOperation: PendingBinaryOperation?
-
-	private struct PendingBinaryOperation
-	{
-		let function: (Double, Double) -> Double
-		let firstOperand: Double
-
-		func perform(with seconOperand: Double) -> Double {
-			return function(firstOperand, seconOperand)
+	//Выполним последнюю отложенную операцию
+	private func executeLastPendingOperation() {
+		let operation = pending.removeLast()
+		accumulator = operation.function(operation.firstOperand, accumulator)
+	}
+	//Обновляем операцию в последней отложенной при множественном нажатии
+	private func updateLastPendingOperation(symbol: String) {
+		guard let operation = operations[symbol] else { return }
+		if pending.isEmpty == false {
+			switch operation {
+			case .binaryOperation(let function, _):
+				pending[pending.count - 1].function = function
+			default:
+				break
+			}
 		}
-	}
-	mutating func setDigit(_ operand: Double) {
-		currentContainer = operand
-	}
-	mutating func performPendingContainer() {
-		if let result = currentContainer {
-			pendingContainer = result
-		}
-	}
-	mutating func null() {
-		currentContainer = nil
-		pendingBinaryOperation = nil
-		pendingContainer = Double()
 	}
 }

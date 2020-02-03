@@ -69,39 +69,36 @@ final class CalculatorViewController: UIViewController
 		resultLabel = calculatorScreen.resultLabel
 	}
 	@objc func pressNumber(_ sender: UIButton) {
-		if let digit = sender.currentTitle{
-			if typingBegan {
-				if let textCurrentlyInDisplay = resultLabel.text {
-					if digit != "," || textCurrentlyInDisplay.contains(",") == false {
-						resultLabel.text = textCurrentlyInDisplay + digit
-					}
+		guard let buttonTitle = sender.titleLabel?.text, let displayedText = resultLabel.text else { return }
+		if typingBegan {
+			if buttonTitle != "," || (buttonTitle == "," && displayedText.contains(",") == false) {
+				if displayedText != "0" {
+					resultLabel.text = displayedText + buttonTitle
+				}
+				else {
+					resultLabel.text = (buttonTitle == "," ? "0," : buttonTitle)
 				}
 			}
-			else {
-				resultLabel.text = digit
-				typingBegan = true
-			}
 		}
+		else {
+			resultLabel.text = (buttonTitle == "," ? "0," : buttonTitle)
+		}
+		typingBegan = true
 		changeACButton()
 	}
 	@objc func pressOperator(_ sender: UIButton) {
-		if typingBegan {
-			if let value = displayValue {
-				brain.setDigit(value)
-			}
+		guard let buttonTitle = sender.titleLabel?.text else { return }
+		let needCalculation = typingBegan
+		if typingBegan, let value = displayValue {
+			brain.setOperand(operand: value)
 			typingBegan = false
 		}
-		if let mathematicsSymbol = sender.currentTitle {
-			brain.performOperation(mathematicsSymbol)
-		}
-		if let result = brain.result {
-			displayValue = result
-		}
-		changeACButton()
+		brain.performOperation(symbol: buttonTitle, getBothOperandsForBinaryOperation: needCalculation)
+		displayValue = brain.result
 	}
 	@objc func pressAC(_ sender: UIButton) {
 		if sender.currentTitle == "C" {
-			brain.null()
+			brain.clear()
 			displayValue = 0
 			typingBegan = false
 			changeACButton()
