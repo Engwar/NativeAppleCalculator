@@ -17,6 +17,9 @@
 		9407D61023E87BAB00E68913 /* CalculatorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9407D60F23E87BAB00E68913 /* CalculatorScreen.swift */; };
 		9407D61523E87CAA00E68913 /* FiraSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9407D61323E87CAA00E68913 /* FiraSans-Light.ttf */; };
 		9407D61623E87CAA00E68913 /* FiraSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9407D61423E87CAA00E68913 /* FiraSans-Regular.ttf */; };
+		9407D61923E87D0C00E68913 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9407D61823E87D0C00E68913 /* RoundButton.swift */; };
+		9407D61B23E87D1F00E68913 /* ResultLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9407D61A23E87D1F00E68913 /* ResultLabel.swift */; };
+		9407D61D23E87D2C00E68913 /* StackButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9407D61C23E87D2C00E68913 /* StackButtons.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +34,9 @@
 		9407D60F23E87BAB00E68913 /* CalculatorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorScreen.swift; sourceTree = "<group>"; };
 		9407D61323E87CAA00E68913 /* FiraSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Light.ttf"; sourceTree = "<group>"; };
 		9407D61423E87CAA00E68913 /* FiraSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSans-Regular.ttf"; sourceTree = "<group>"; };
+		9407D61823E87D0C00E68913 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		9407D61A23E87D1F00E68913 /* ResultLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultLabel.swift; sourceTree = "<group>"; };
+		9407D61C23E87D2C00E68913 /* StackButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackButtons.swift; sourceTree = "<group>"; };
 		BDF509D53C84B3CCE8F3EABF /* Pods_NativeAppleCalculator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NativeAppleCalculator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FEF709380851F7C676773F /* Pods-NativeAppleCalculator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAppleCalculator.debug.xcconfig"; path = "Target Support Files/Pods-NativeAppleCalculator/Pods-NativeAppleCalculator.debug.xcconfig"; sourceTree = "<group>"; };
 		C4FA3DAC20CD9F313A483045 /* Pods-NativeAppleCalculator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAppleCalculator.release.xcconfig"; path = "Target Support Files/Pods-NativeAppleCalculator/Pods-NativeAppleCalculator.release.xcconfig"; sourceTree = "<group>"; };
@@ -86,11 +92,12 @@
 		9407D5F023E8763800E68913 /* NativeAppleCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				9407D61123E87C6800E68913 /* Resources */,
+				9407D61723E87CFC00E68913 /* Views */,
 				9407D60E23E87B9800E68913 /* Screen */,
 				9407D60B23E87B1800E68913 /* Brain */,
 				9407D60A23E87B0900E68913 /* Applications */,
 				9407D60923E8796E00E68913 /* Controller */,
+				9407D61123E87C6800E68913 /* Resources */,
 				9407D60623E8769200E68913 /* Support */,
 			);
 			path = NativeAppleCalculator;
@@ -154,6 +161,16 @@
 				9407D61423E87CAA00E68913 /* FiraSans-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		9407D61723E87CFC00E68913 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9407D61823E87D0C00E68913 /* RoundButton.swift */,
+				9407D61A23E87D1F00E68913 /* ResultLabel.swift */,
+				9407D61C23E87D2C00E68913 /* StackButtons.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,11 +289,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9407D61923E87D0C00E68913 /* RoundButton.swift in Sources */,
 				9407D5F223E8763800E68913 /* AppDelegate.swift in Sources */,
+				9407D61D23E87D2C00E68913 /* StackButtons.swift in Sources */,
 				9407D60823E8791D00E68913 /* CalculatorViewController.swift in Sources */,
 				9407D60D23E87B3400E68913 /* LogicOperations.swift in Sources */,
 				9407D5F423E8763800E68913 /* SceneDelegate.swift in Sources */,
 				9407D61023E87BAB00E68913 /* CalculatorScreen.swift in Sources */,
+				9407D61B23E87D1F00E68913 /* ResultLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
